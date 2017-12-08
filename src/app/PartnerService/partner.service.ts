@@ -15,20 +15,30 @@ export class PartnerService {
 
     createPartners( newPartners: ReportingPartner[] ) {
         newPartners.forEach( x => {
-            console.log( x.PartnerId );
-            console.log( x.status );
+            console.log('create partners ' + x.PartnerId );
         } );
         // this._http.post(this._PartnerUrl, newPartners).subscribe();
     }
 
     updatePartners( newPartners: ReportingPartner[] ) {
         newPartners.forEach( x => {
-            console.log( x.PartnerId );
-            console.log( x.status );
+            console.log('update partner ' + x.PartnerId );
         } );
         // this._http.put(this._PartnerUrl, newPartners).subscribe();
     }
 
+
+    createPartner( newPartner: ReportingPartner) {
+        const partners:  ReportingPartner[] = new Array<ReportingPartner>();
+        partners.push(newPartner);
+        this.createPartners(partners);
+    }
+
+    updatePartner( newPartner: ReportingPartner ) {
+        const partners:  ReportingPartner[] = new Array<ReportingPartner>();
+        partners.push(newPartner);
+        this.updatePartners(partners);
+    }
     /**
      * note set's the status to 0, 1 is updated, 2 is new
      */
@@ -36,8 +46,9 @@ export class PartnerService {
         return this._http.get( this._partnerurl )
             .map(( response: Response ) => <ReportingPartner[]>response.json() )
             .do( data => data.forEach( rp => {
-                rp.status = 0;
-            } ) )
+                console.log(rp.PartnerId);
+            }))
+
             .catch( this.handleError );
     }
 

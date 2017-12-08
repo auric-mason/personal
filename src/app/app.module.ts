@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { ButtonModule } from 'primeng/primeng';
-import {DataTableModule, SharedModule} from 'primeng/primeng';
+import {DataTableModule, SharedModule, DialogModule} from 'primeng/primeng';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule( {
     declarations: [
@@ -14,7 +16,10 @@ import {DataTableModule, SharedModule} from 'primeng/primeng';
         HttpModule,
         ButtonModule,
         DataTableModule,
-        SharedModule
+        SharedModule,
+        DialogModule,
+        FormsModule,
+        BrowserAnimationsModule
     ],
     providers: [BrowserModule, HttpModule],
     bootstrap: [AppComponent]

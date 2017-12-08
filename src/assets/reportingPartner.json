@@ -1,6 +1,5 @@
 [{
    "PartnerId": "Arrow",
-   "status": 0,
    "PartnerInow": {
    "EntityName": "Arrow Electronics",
    "Street1": "132 Street 1",
@@ -23,7 +22,6 @@
               }
 },{
    "PartnerId": "Seagate",
-   "status": 0,
    "PartnerInow": {
    "EntityName": "Seagate Electronics",
    "Street1": "132 Street 1",
