@@ -1,16 +1,14 @@
-import { PartnerService } from '../PartnerService/partner.service';
-import { Component, OnInit } from '@angular/core';
-import { ReportingPartner } from '../PartnerService/reporting-partner';
-import {DataTableModule, SharedModule} from 'primeng/primeng';
+import { PartnerService } from '../../services/PartnerService/partner.service';
+import { Component, OnInit, Inject } from '@angular/core';
 
 @Component({
     selector: 'app-partner-config',
     templateUrl: './partner-config.component.html',
     styleUrls: ['./partner-config.component.css'],
-    providers: [PartnerService]
+    providers: [ PartnerService ]
   })
 
-export class PartnerConfigComponent implements OnInit {
+export class ParserConfigComponent implements OnInit {
     title = 'app';
     data: ReportingPartner[] = new Array<ReportingPartner>();
     partner: ReportingPartner = { PartnerId: 'NEW', PartnerInow:
@@ -22,7 +20,7 @@ export class PartnerConfigComponent implements OnInit {
     newPartner: boolean;
     selectedPartner: ReportingPartner;
 
-    constructor( private _partnerService: PartnerService ) {
+    constructor(@Inject(PartnerService) private _partnerService: PartnerService ) {
 
     }
 

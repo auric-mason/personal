@@ -1,78 +1,65 @@
-import { PartnerService } from './PartnerService/partner.service';
 import { Component, OnInit } from '@angular/core';
-import { ReportingPartner } from './PartnerService/reporting-partner';
-import {DataTableModule, SharedModule} from 'primeng/primeng';
+import { PanelMenuModule, MenuItem } from 'primeng/primeng';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [PartnerService]
-})
+@Component( {
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
+} )
 
 export class AppComponent implements OnInit {
-    title = 'app';
-    data: ReportingPartner[] = new Array<ReportingPartner>();
-    partner: ReportingPartner = { PartnerId: 'NEW', PartnerInow:
-    {EntityName: 'NEW', Street1: 'NEW', Street2: 'NEW', City: 'NEW', StateProvince: 'NEW', PostalCode: 'NEW',
-        Country: { Name: 'NEW', twoCharCode: 'NEW', threeCharCode: 'NEW'}},
-        gsNumber: { value: 'NEW', zone: 'NEW', subZone1: 'NEW', subZone2: 'NEW', partnerType: 'NEW',
-            transitDays: 7, currency: 'USD', priceOverride: true}};
-    displayDialog: boolean;
-    newPartner: boolean;
-    selectedPartner: ReportingPartner;
+    items: MenuItem[];
 
-    constructor( private _partnerService: PartnerService ) {
-
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Setup',
+                icon: 'fa fa-cogs',
+                items: [
+                {
+                    label: 'Parsers',
+                    title: 'Parser configuration',
+                    icon: 'fa fa-map',
+                    routerLink: ['/parserConfig']
+                },
+                {
+                    label: 'Partners',
+                    title: 'Reporting partner configuration',
+                    icon: 'fa fa-handshake-o',
+                    routerLink: ['/partnerConfig']
+                },
+                {
+                    label: 'File Scanner',
+                    title: 'When/where to pick up files',
+                    icon: 'fa fa-paper-plane',
+                    routerLink: ['/fileScannerConfig']
+                },
+                {
+                    label: 'General',
+                    icon: 'fa fa-toggle-on',
+                    title: 'Generic customer configuration',
+                    routerLink: ['/generalConfig']
+                },
+                {
+                    label: 'Exports',
+                    icon: 'fa fa-exchange',
+                    title: 'Exporter format configuration',
+                    routerLink: ['/exporterConfig']
+                },
+                {
+                    label: 'Export Cond',
+                    title: 'When/where to export what',
+                    icon: 'fa fa-filter',
+                    routerLink: ['/snlConfig']
+                },
+                {
+                    label: 'Validations',
+                    title: 'Data validate configuration',
+                    icon: 'fa fa-star',
+                    routerLink: ['/validationConfig']
+                }
+                ]
+            }
+        ];
     }
-
-    ngOnInit(): void {
-        this.reload(null);
-    }
-
-    reload(event) {
-        this._partnerService.getPartners()
-        .subscribe( ipartners => this.data = ipartners);
-
-    }
-
-    saveChanges( event ) {
-        console.log( 'saved:' + event );
-        const partners = [...this.data];
-        if (this.newPartner) {
-            this._partnerService.createPartner(this.partner);
-            partners.push(this.partner);
-        } else {
-            this._partnerService.updatePartner(this.partner);
-            partners[this.findSelectedPartnerIndex()] = this.partner;
-        }
-        this.data = partners;
-        this.partner = null;
-        this.displayDialog = false;
-        // this.reload( event ); -- TODO uncomment once hooked up to a back end.
-    }
-
-    showDialogToAdd() {
-        this.newPartner = true;
-        this.partner = new PartnerComponent('NewPartner');
-        this.displayDialog = true;
-    }
-
-    onRowSelect(event) {
-        this.newPartner = false;
-        this.partner = this.clonePartner(event.data);
-        this.displayDialog = true;
-    }
-
-    clonePartner(r: ReportingPartner): ReportingPartner {
-        return JSON.parse(JSON.stringify(r));
-    }
-
-    findSelectedPartnerIndex(): number {
-        return this.data.indexOf(this.selectedPartner);
-    }
-}
-
-class PartnerComponent implements ReportingPartner {
-    constructor(public PartnerId, public PartnerInow?, public gsNumber?) {}
 }

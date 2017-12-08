@@ -1,11 +1,11 @@
-<div style="text-align: center">
+<div id="Top" style="text-align: center">
 	<h1>Configuration</h1>
 	<div></div>
 </div>
-<div>
-<ul>
-      <li><a [routerLink] = "['/PartnerConfig']">Partners</a></li>
-   </ul>
-   <router-outlet></router-outlet>
+<div id="menu" align="left">
+	<p-panelMenu [model]="items" [style]="{'width':'150px'}"></p-panelMenu>
+	
 </div>
-
+<div id="layout-content" align="center">
+   	<router-outlet></router-outlet>
+</div>	
