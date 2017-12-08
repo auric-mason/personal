@@ -1,0 +1,47 @@
+[{
+   "PartnerId": "Arrow",
+   "status": 0,
+   "PartnerInow": {
+   "EntityName": "Arrow Electronics",
+   "Street1": "132 Street 1",
+   "Street2": "Atten Mrs. Robinson",
+   "City": "Bolder",
+   "StateProvince": "CO",
+   "PostalCode":"80203",
+   "Country":{"Name":"United States",
+   			  "twoCharCode":"US",
+   			  "threeCharCode":"USA"}
+   },
+   "gsNumber":{"value":"ARR",
+              "zone": "EMEA",
+              "subZone1": "",
+              "subZone2":"",
+              "partnerType":"ACTIVE",
+              "transitDays":"7",
+              "currency":"USD",
+              "priceOverride":"Y"
+              }
+},{
+   "PartnerId": "Seagate",
+   "status": 0,
+   "PartnerInow": {
+   "EntityName": "Seagate Electronics",
+   "Street1": "132 Street 1",
+   "Street2": "Atten Mrs. Robinson",
+   "City": "Denver",
+   "StateProvince": "CO",
+   "PostalCode":"80203",
+   "Country":{"Name":"United States",
+   			  "twoCharCode":"US",
+   			  "threeCharCode":"USA"}
+   },
+   "gsNumber":{"value":"SEA",
+              "zone": "EMEA",
+              "subZone1": "",
+              "subZone2":"",
+              "partnerType":"ACTIVE",
+              "transitDays":"7",
+              "currency":"USD",
+              "priceOverride":"Y"
+              }
+}]
