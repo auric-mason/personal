@@ -39,9 +39,7 @@ export class PartnerService {
         partners.push(newPartner);
         this.updatePartners(partners);
     }
-    /**
-     * note set's the status to 0, 1 is updated, 2 is new
-     */
+
     getPartners(): Observable<ReportingPartner[]> {
         return this._http.get( this._partnerurl )
             .map(( response: Response ) => <ReportingPartner[]>response.json() )

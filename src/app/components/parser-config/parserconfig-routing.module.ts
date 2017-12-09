@@ -12,4 +12,5 @@ import { ParserConfigComponent } from './parser-config.component';
         RouterModule
     ]
 } )
+
 export class ParserConfigRoutingModule { }

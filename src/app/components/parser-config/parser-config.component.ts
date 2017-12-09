@@ -1,26 +1,25 @@
-import { PartnerService } from '../../services/PartnerService/partner.service';
+import { ParserService } from '../../services/ParserService/parser.service';
 import { Component, OnInit, Inject } from '@angular/core';
 
+import { ParserList } from '../../interfaces/parser-list-interface/parser-list-interface.module';
+import { PartnerInow, Country } from '../../interfaces/domain-interface/domain-interface.module';
+
 @Component({
-    selector: 'app-partner-config',
-    templateUrl: './partner-config.component.html',
-    styleUrls: ['./partner-config.component.css'],
-    providers: [ PartnerService ]
+    selector: 'app-parser-config',
+    templateUrl: './parser-config.component.html',
+    styleUrls: ['./parser-config.component.css'],
+    providers: [ ParserService ]
   })
 
 export class ParserConfigComponent implements OnInit {
     title = 'app';
-    data: ReportingPartner[] = new Array<ReportingPartner>();
-    partner: ReportingPartner = { PartnerId: 'NEW', PartnerInow:
-    {EntityName: 'NEW', Street1: 'NEW', Street2: 'NEW', City: 'NEW', StateProvince: 'NEW', PostalCode: 'NEW',
-        Country: { Name: 'NEW', twoCharCode: 'NEW', threeCharCode: 'NEW'}},
-        gsNumber: { value: 'NEW', zone: 'NEW', subZone1: 'NEW', subZone2: 'NEW', partnerType: 'NEW',
-            transitDays: 7, currency: 'USD', priceOverride: true}};
-    displayDialog: boolean;
-    newPartner: boolean;
-    selectedPartner: ReportingPartner;
+    data: ParserList[] = new Array<ParserList>();
 
-    constructor(@Inject(PartnerService) private _partnerService: PartnerService ) {
+    displayDialog: boolean;
+    newParser: boolean;
+    selectedParser: ParserList;
+
+    constructor(@Inject(ParserService) private _parserService: ParserService ) {
 
     }
 
@@ -29,49 +28,10 @@ export class ParserConfigComponent implements OnInit {
     }
 
     reload(event) {
-        this._partnerService.getPartners()
-        .subscribe( ipartners => this.data = ipartners);
+        this._parserService.getParsers()
+        .subscribe( iparsers => this.data = iparsers);
 
     }
 
-    saveChanges( event ) {
-        console.log( 'saved:' + event );
-        const partners = [...this.data];
-        if (this.newPartner) {
-            this._partnerService.createPartner(this.partner);
-            partners.push(this.partner);
-        } else {
-            this._partnerService.updatePartner(this.partner);
-            partners[this.findSelectedPartnerIndex()] = this.partner;
-        }
-        this.data = partners;
-        this.partner = null;
-        this.displayDialog = false;
-        // this.reload( event ); -- TODO uncomment once hooked up to a back end.
-    }
-
-    showDialogToAdd() {
-        this.newPartner = true;
-        this.partner = new PartnerComponent('NewPartner');
-        this.displayDialog = true;
-    }
-
-    onRowSelect(event) {
-        this.newPartner = false;
-        this.partner = this.clonePartner(event.data);
-        this.displayDialog = true;
-    }
-
-    clonePartner(r: ReportingPartner): ReportingPartner {
-        return JSON.parse(JSON.stringify(r));
-    }
-
-    findSelectedPartnerIndex(): number {
-        return this.data.indexOf(this.selectedPartner);
-    }
-}
-
-class PartnerComponent implements ReportingPartner {
-    constructor(public PartnerId, public PartnerInow?, public gsNumber?) {}
 }
 

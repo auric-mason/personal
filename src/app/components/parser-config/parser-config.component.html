@@ -1,54 +1,16 @@
 <div style="text-align: center">
-	<h1>Reporting Partners</h1>
-</div>
+	<h1>Parsers</h1>
+</div>	<!-- 
 <div id="ctlPanel" style="text-align: left">
+
+	(onRowSelect)="onRowSelect($event)"  
 	
 </div>
-<p-dataTable [value]="data" selectionMode="single" [(selection)]="selectedPartner" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="50" [responsive]="true">
-    <p-column field="PartnerId" header="Partner Id" [sortable]="true"></p-column>
-    <p-column field="gsNumber.value" header="Gs Number" [sortable]="true" ></p-column>
-    <p-column field="PartnerInow.EntityName" header="Name" [sortable]="true"></p-column>
-    <p-column field="PartnerInow.Street1" header="Street" [sortable]="true"></p-column>
-    <p-column field="PartnerInow.City" header="City" [sortable]="true"></p-column>
-    <p-column field="PartnerInow.StateProvince" header="State" [sortable]="true"></p-column>
-    <p-column field="PartnerInow.PostalCode" header="Postal" [sortable]="true"></p-column>
-    <p-column field="PartnerInow.Country.twoCharCode" header="Country" [sortable]="true"></p-column>
-    <p-column field="gsNumber.zone" header="Zone" [sortable]="true"></p-column>
-    <p-column field="gsNumber.partnerType" header="Type" [sortable]="true"></p-column>
-    <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="newPartner()" label="Add"></button></div></p-footer>
+	 -->
+<p-dataTable [value]="data" selectionMode="single" [(selection)]="selectedParser" [paginator]="true" rows="50" [responsive]="true">
+    <p-column field="Name" header="Parser Type" [sortable]="true"></p-column>
+    <p-column field="Type" header="Data Type" [sortable]="true" ></p-column>
+    <p-column field="PartnerInow.EntityName" header="Partner Name" [sortable]="true"></p-column>
+    <!-- <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="newPartner()" label="Add"></button></div></p-footer> -->
 </p-dataTable>
 
-<p-dialog header="Partner" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
-    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="partner">
-        
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="PartnerId">Partner Id</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="PartnerId" [(ngModel)]="partner.PartnerId" /></div></div>
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="PartnerInow.EntityName">Entity Name</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="PartnerInow.EntityName" [(ngModel)]="partner.PartnerInow.EntityName" /></div></div>
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="PartnerInow.Street1">Street1</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="PartnerInow.Street1" [(ngModel)]="partner.PartnerInow.Street1" /></div></div>
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="PartnerInow.Street2">Street2</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="PartnerInow.Street2" [(ngModel)]="partner.PartnerInow.Street2" /></div></div>
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="PartnerInow.City">City</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="PartnerInow.City" [(ngModel)]="partner.PartnerInow.City" /></div></div>
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="PartnerInow.StateProvince">State</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="PartnerInow.StateProvince" [(ngModel)]="partner.PartnerInow.StateProvince" /></div></div>
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="PartnerInow.PostalCode">Postal</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="PartnerInow.PostalCode" [(ngModel)]="partner.PartnerInow.PostalCode" /></div></div>
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="PartnerInow.Country.Name">Country</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="PartnerInow.Country.Name" [(ngModel)]="partner.PartnerInow.Country.Name" /></div></div>
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="gsNumber.value">Value</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="gsNumber.value" [(ngModel)]="partner.gsNumber.value" /></div></div>
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="gsNumber.zone">Zone</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="gsNumber.zone" [(ngModel)]="partner.gsNumber.zone" /></div></div>
-		<div class="ui-grid-row"><div class="ui-grid-col-4"><label for="gsNumber.partnerType">Type</label></div>
-		<div class="ui-grid-col-8"><input pInputText id="gsNumber.partnerType" [(ngModel)]="partner.gsNumber.partnerType" /></div></div>
-	          
-	      
-    </div>
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa-check" (click)="saveChanges()" label="Save"></button>
-        </div>
-    </p-footer>
-</p-dialog>

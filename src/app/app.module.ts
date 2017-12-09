@@ -10,6 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { PartnerService } from './services/PartnerService/partner.service';
+import { ParserService } from './services/ParserService/parser.service';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { PartnerService } from './services/PartnerService/partner.service';
     FlexLayoutModule
   ],
   providers: [
-      PartnerService
+      PartnerService, ParserService
   ],
   bootstrap: [AppComponent]
 })
