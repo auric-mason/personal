@@ -6,6 +6,8 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
 import { ParserList } from '../../interfaces/parser-list-interface/parser-list-interface.module';
+import { Address, Attribute, Converter, Field, Format } from '../../interfaces/parser-config-interface/parser-config-interface.module';
+import { Header, HeaderField, ParserConfig, Type} from '../../interfaces/parser-config-interface/parser-config-interface.module';
 import { PartnerInow, Country } from '../../interfaces/domain-interface/domain-interface.module';
 
 @Injectable()
@@ -20,6 +22,13 @@ export class ParserService {
     getParsers(): Observable<ParserList[]> {
         return this._http.get( this._parserListUrl )
             .map(( response: Response ) => <ParserList[]>response.json() )
+            .catch( this.handleError );
+    }
+
+    // Note we need to add in the params for what sid to get
+    getParserConfig(sid: number): Observable<ParserConfig[]> {
+        return this._http.get( this._parserConfigUrl)
+            .map(( response: Response ) => <ParserConfig[]>response.json() )
             .catch( this.handleError );
     }
 

@@ -5,6 +5,15 @@ import { HttpModule } from '@angular/http';
 import { DataTableModule, SharedModule, DialogModule, ButtonModule } from 'primeng/primeng';
 import { ParserConfigRoutingModule } from './parserconfig-routing.module';
 import { ParserConfigComponent } from './parser-config.component';
+import { PapaParseModule } from 'ngx-papaparse';
+import { DropdownModule } from 'primeng/primeng';
+import { SpinnerModule } from 'primeng/primeng';
+import { FileUploadModule } from 'primeng/primeng';
+import { ToolbarModule } from 'primeng/primeng';
+import * as XLSX from 'xlsx';
+
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -13,8 +22,14 @@ import { ParserConfigComponent } from './parser-config.component';
     ButtonModule,
     HttpModule,
     ParserConfigRoutingModule,
-    DataTableModule
+    DataTableModule,
+    DropdownModule,
+    SpinnerModule,
+    FileUploadModule,
+    PapaParseModule,
+    ToolbarModule
   ],
-  declarations: [ ParserConfigComponent ]
+  declarations: [ ParserConfigComponent ],
+  providers: [ PapaParseModule ]
 })
 export class ParserModule { }

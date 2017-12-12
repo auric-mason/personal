@@ -23,7 +23,7 @@ export interface GsNumber {
     priceOverride?: string;
 }
 
-export interface ReportingPartner {
+export interface ReportingPartner extends PartnerInow {
     PartnerId: string;
     gsNumber: GsNumber;
     PartnerInow: PartnerInow;
