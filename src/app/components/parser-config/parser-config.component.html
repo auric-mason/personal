@@ -24,6 +24,10 @@
 				<label for="dataType">Data Type</label>
 				<p-dropdown [options]="dataTypes" id="dataType"
 					[(ngModel)]="selectedDatatype" [style]="{'width':'150px'}"
+					placeholder="Select a data type" filter="true"></p-dropdown>
+				<label for="fileType">File Type</label>
+				<p-dropdown [options]="fileTypes" id="fileTypes"
+					[(ngModel)]="selectedFiletype" [style]="{'width':'150px'}"
 					placeholder="Select a file type" filter="true"></p-dropdown>
 				<label for="lineCnt">Header Line Cnt</label>
 				<p-spinner size="30" id="lineCnt" style="{'width':'15px'}"
@@ -40,7 +44,7 @@
 	<p-column *ngFor="let col of cols" [field]="col.fileColValue"  
 		[header]="col.fileColValue">
 		  <ng-template pTemplate="header" >    
-				<p-menubar [model]="col.items"></p-menubar>
+				<p-menubar [model]="col.items" ></p-menubar>
 		  </ng-template>
   
 		</p-column> <!-- <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="newPartner()" label="Add"></button></div></p-footer> -->

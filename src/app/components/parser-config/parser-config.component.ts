@@ -20,7 +20,9 @@ type AOA = Array<Array<any>>;
 
 export class ParserConfigComponent implements OnInit {
     dataTypes: SelectItem[];
+    fileTypes: SelectItem[];
     selectedDatatype: string;
+    selectedFiletype: string;
     delimiter: string;
     quote: string;
     headLineCnt: number;
@@ -37,10 +39,14 @@ export class ParserConfigComponent implements OnInit {
     selectedParser: ParserList;
 
     constructor( @Inject( ParserService ) private _parserService: ParserService, private papa: PapaParseService ) {
-        this.dataTypes = [{ label: 'csv', value: 'csv' },
+        this.fileTypes = [{ label: 'csv', value: 'csv' },
         { label: 'excel', value: 'xlsx' },
         { label: 'excel xls', value: 'xls' }];
-        this.selectedDatatype = 'xlsx';
+        this.dataTypes = [{ label: 'transaction', value: 'txn' },
+                          { label: 'inventory', value: 'inv' },
+                          { label: 'sales-in', value: 'txn-in' }];
+        this.selectedFiletype = 'xlsx';
+        this.selectedDatatype = 'txn';
         this.headLineCnt = 1;
     }
 
