@@ -32,8 +32,6 @@ export class ParserConfigComponent implements OnInit {
     excelSheets: string[];
     cols: ConfigColumn[] = new Array<ConfigColumn>();
 
-    items: MenuItem[];
-
     isEditMode: boolean;
     newParser: boolean;
     selectedParser: ParserList;
@@ -44,23 +42,6 @@ export class ParserConfigComponent implements OnInit {
         { label: 'excel xls', value: 'xls' }];
         this.selectedDatatype = 'xlsx';
         this.headLineCnt = 1;
-
-        this.items = [
-                      {
-                          label: 'File',
-                          items: [{
-                                  label: 'New',
-                                  icon: 'fa-plus',
-                                  items: [
-                                      {label: 'Project'},
-                                      {label: 'Other'},
-                                  ]
-                              },
-                              {label: 'Open'},
-                              {label: 'Quit'}
-                          ]
-                      }
-                      ];
     }
 
     ngOnInit(): void {
@@ -84,6 +65,7 @@ export class ParserConfigComponent implements OnInit {
         for ( const file of event.files ) {
             uploadedFile = file;
         }
+        // clear out the uploaded file after selection
         console.log(this.selectedDatatype);
         switch ( this.selectedDatatype ) {
             case 'csv':
@@ -179,8 +161,50 @@ export class ParserConfigComponent implements OnInit {
 class ConfigColumn {
     config: ParserConfig;
     fileColValue: string;
+    items: MenuItem[];
 
     constructor( fieldName: string ) {
         this.fileColValue = fieldName;
+        this.items = [
+            {
+                label: fieldName,
+                items: [{
+                    label: 'Field',
+                    items: [
+                        { label: 'Invoice Date', icon: 'fa-plus', disabled: true },
+                        { label: 'Invoice Number' },
+                    ]
+                },
+                { label: 'Converter',
+                    items: [
+                            { label: 'String' },
+                            { label: 'Date' },
+                        ] },
+                { label: 'Type',
+                    items: [
+                            { label: 'String' },
+                            { label: 'Date' },
+                        ] }
+                ]
+            }
+        ];
     }
 }
+/*
+ * this.items = [
+            {
+                label: fieldName,
+                items: [{
+                    label: 'Field',
+                    icon: 'fa-plus',
+                    items: [
+                        { label: 'Project' },
+                        { label: 'Other' },
+                    ]
+                },
+                { label: 'Open' },
+                { label: 'Quit' }
+                ]
+            }
+        ];
+        */

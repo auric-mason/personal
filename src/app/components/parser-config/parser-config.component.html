@@ -38,11 +38,10 @@
 		</p-toolbar> 
 	</p-header> 
 	<p-column *ngFor="let col of cols" [field]="col.fileColValue"  
-		[header]="col.fileColValue" >
-		
-  <ng-template  pTemplate="header"  let-myItem="rowData">    
-		<p-menubar [model]="items"></p-menubar>
-  </ng-template>
+		[header]="col.fileColValue">
+		  <ng-template pTemplate="header" >    
+				<p-menubar [model]="col.items"></p-menubar>
+		  </ng-template>
   
 		</p-column> <!-- <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="newPartner()" label="Add"></button></div></p-footer> -->
 	</p-dataTable>
