@@ -5,8 +5,11 @@ import { ParserList } from '../../interfaces/parser-list-interface/parser-list-i
 import { PartnerInow, Country } from '../../interfaces/domain-interface/domain-interface.module';
 
 import { ParserConfig } from '../../interfaces/parser-config-interface/parser-config-interface.module';
-import { DropdownModule, SelectItem } from 'primeng/primeng';
+import { DropdownModule, SelectItem, MenubarModule, MenuItem } from 'primeng/primeng';
 import { PapaParseService, PapaParseConfig, PapaParseResult } from 'ngx-papaparse';
+
+import * as XLSX from 'xlsx';
+type AOA = Array<Array<any>>;
 
 @Component( {
     selector: 'app-parser-config',
@@ -17,7 +20,7 @@ import { PapaParseService, PapaParseConfig, PapaParseResult } from 'ngx-papapars
 
 export class ParserConfigComponent implements OnInit {
     dataTypes: SelectItem[];
-    selectedDatatype: SelectItem;
+    selectedDatatype: string;
     delimiter: string;
     quote: string;
     headLineCnt: number;
@@ -25,21 +28,39 @@ export class ParserConfigComponent implements OnInit {
     config: ParserConfig[] = new Array<ParserConfig>();
 
     data: any[] = new Array<any>();
+    excelData: AOA = [ [1, 2], [3, 4] ];
+    excelSheets: string[];
     cols: ConfigColumn[] = new Array<ConfigColumn>();
-    uploadedFile: any;
+
+    items: MenuItem[];
 
     isEditMode: boolean;
     newParser: boolean;
     selectedParser: ParserList;
 
     constructor( @Inject( ParserService ) private _parserService: ParserService, private papa: PapaParseService ) {
-        this.dataTypes = [{label: 'csv', value: 'csv'},
-                          {label: 'excel', value: 'excel'},
-                          {label: 'excel xls', value: 'excel xls'}];
-        console.log(this.dataTypes);
-        this.selectedDatatype = this.dataTypes[0];
+        this.dataTypes = [{ label: 'csv', value: 'csv' },
+        { label: 'excel', value: 'xlsx' },
+        { label: 'excel xls', value: 'xls' }];
+        this.selectedDatatype = 'xlsx';
         this.headLineCnt = 1;
 
+        this.items = [
+                      {
+                          label: 'File',
+                          items: [{
+                                  label: 'New',
+                                  icon: 'fa-plus',
+                                  items: [
+                                      {label: 'Project'},
+                                      {label: 'Other'},
+                                  ]
+                              },
+                              {label: 'Open'},
+                              {label: 'Quit'}
+                          ]
+                      }
+                      ];
     }
 
     ngOnInit(): void {
@@ -52,32 +73,91 @@ export class ParserConfigComponent implements OnInit {
 
     }
 
-    onUpload( event ) {
-        for ( const file of event.files ) {
-            this.uploadedFile = file;
-            console.log( 'file set:' + file );
-        }
-        this.parseFile();
-    }
-
-    private parseFile() {
-
-        this.papa.parse( this.uploadedFile, {
-            delimiter: this.delimiter,
-            header: this.headLineCnt > 0,
-            quoteChar: this.quote,
-            complete: ( results ) => {
-                this.parseComplete( results );
-            }
-        } );
-    }
-
     onRowSelect( event ) {
         this.isEditMode = true;
         // this.partner = this.clonePartner(event.data);
     }
 
-    parseComplete( results: PapaParseResult ) {
+    onUpload( event ) {
+        let uploadedFile: any;
+
+        for ( const file of event.files ) {
+            uploadedFile = file;
+        }
+        console.log(this.selectedDatatype);
+        switch ( this.selectedDatatype ) {
+            case 'csv':
+                this.parseCsvFile( uploadedFile );
+                break;
+            case 'xlsx':
+                this.parseExcelFile( uploadedFile );
+                break;
+        }
+    }
+
+    selectAllCars() {
+        console.log('all cars');
+    }
+
+    private parseExcelFile( uploadedFile: any ) {
+        /* wire up file reader */
+        const target: DataTransfer = <DataTransfer>(uploadedFile);
+
+        const reader: FileReader = new FileReader();
+        reader.onload = (e: any) => {
+            /* read workbook */
+            const wb: XLSX.WorkBook = XLSX.read(e.target.result, {type: 'binary'});
+
+            /* grab first sheet */
+            const wsname: string = wb.SheetNames[0];
+            const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+            this.excelSheets = wb.SheetNames;
+            /* save data  */
+            this.excelData = <AOA>(XLSX.utils.sheet_to_json(ws, {header: 1}));
+            this.excelData[0].forEach( f => {
+                const col = new ConfigColumn( f );
+                this.cols.push( col );
+            });
+            this.data = this.convertToArrayOfObjects(this.excelData);
+
+        };
+        reader.readAsBinaryString(uploadedFile);
+    }
+
+    private convertToArrayOfObjects( data ): any {
+        const keys = data.shift(),
+            output = [];
+        let i = 0, k = 0,
+            obj = null;
+
+        for ( i = 0; i < data.length; i++ ) {
+            if ( data[i] !== undefined && data[i].length === 0 ) {
+                break;
+            }
+            obj = {};
+            for ( k = 0; k < keys.length; k++ ) {
+                obj[keys[k]] = data[i][k];
+            }
+
+            output.push( obj );
+        }
+
+        return output;
+    }
+
+    private parseCsvFile( uploadedFile: any ) {
+
+        this.papa.parse( uploadedFile, {
+            delimiter: this.delimiter,
+            header: this.headLineCnt > 0,
+            quoteChar: this.quote,
+            complete: ( results ) => {
+                this.parseCsvComplete( results );
+            }
+        } );
+    }
+
+    parseCsvComplete( results: PapaParseResult ) {
         this.data = results.data;
         if ( results.meta.fields !== undefined ) {
             console.log( 'fields' + results.meta.fields );
@@ -92,7 +172,7 @@ export class ParserConfigComponent implements OnInit {
             } );
         }
         console.log( this.cols );
-        console.log( results.data[0] );
+        console.log( results.data );
     }
 }
 

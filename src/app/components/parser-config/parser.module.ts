@@ -11,7 +11,7 @@ import { SpinnerModule } from 'primeng/primeng';
 import { FileUploadModule } from 'primeng/primeng';
 import { ToolbarModule } from 'primeng/primeng';
 import * as XLSX from 'xlsx';
-
+import { MenubarModule, MenuItem } from 'primeng/primeng';
 
 
 @NgModule({
@@ -27,7 +27,8 @@ import * as XLSX from 'xlsx';
     SpinnerModule,
     FileUploadModule,
     PapaParseModule,
-    ToolbarModule
+    ToolbarModule,
+    MenubarModule
   ],
   declarations: [ ParserConfigComponent ],
   providers: [ PapaParseModule ]
