@@ -1,0 +1,119 @@
+[{
+	"sid": "1",
+	"name": "transaction",
+	"type": "csv",
+	"partnerId": "ARROW",
+	"format": {
+		"delimiter": ",",
+		"encoding": "UTF-8",
+		"quote": "\"",
+		"ignoreChars": ""
+	},
+	"header": {
+		"lineCount": "1",
+		"caseSensitive": "false",
+		"validateFields": "false",
+		"validateNumCols": "false",
+		"HeaderFields": [{
+			"field": "test1"
+		},
+		{
+			"field": "test2"
+		},
+		{
+			"field": "test3"
+		}]
+	},
+	"fields": [{
+		"name": "invoiceDate",
+		"location": "1",
+		"required": true,
+		"list": false,
+		"type": {
+			"name": "string",
+			"minLength": 1,
+			"maxLength": 2,
+			"requiredValue": "bob",
+			"allowFutureDates": "false",
+			"pattern": "a+b",
+			"value": "",
+			"notZero": false,
+			"notNegative": false
+		},
+		"converter": {
+			"type": "string",
+			"locale": "USD",
+			"formatPattern": "mm/dd/yyy",
+			"preserveDecimal": 2,
+			"default": "ahshshhs",
+			"hasParenthesis": false,
+			"parenthesisAreNegative": false,
+			"absoluteValue": false,
+			"makeNegative": false
+		}
+	},
+	{
+		"name": "InvoiceNumber",
+		"location": "2",
+		"required": true,
+		"list": false
+	},
+	{
+		"name": "quantity",
+		"location": "3",
+		"required": true,
+		"list": false
+	},
+	{
+		"name": "product",
+		"required": true,
+		"field": [{
+			"name": "sku",
+			"location": "4",
+			"required": true,
+			"list": false
+		}],
+		"attributes": [{
+			"name": "Sales_Representative",
+			"location": "5",
+			"required": true
+		}]
+	}],
+	"addresses": [{
+		"name": "REPORTER",
+		"required": true,
+		"fields": [{
+			"name": "GSNUMBER",
+			"location": "6",
+			"required": true
+		}]
+	},
+	{
+		"name": "BillTo",
+		"required": true,
+		"fields": [{
+			"name": "name",
+			"location": "7",
+			"required": true
+		},
+		{
+			"name": "country",
+			"location": "8",
+			"required": true
+		}]
+	},
+	{
+		"name": "ShipTo",
+		"required": true,
+		"fields": [{
+			"name": "name",
+			"location": "9",
+			"required": true
+		},
+		{
+			"name": "country",
+			"location": "10",
+			"required": true
+		}]
+	}]
+}]

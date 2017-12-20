@@ -1,0 +1,33 @@
+[{
+   "Sid": "1",
+   "Name": "transaction",
+   "Type": "csv",
+   "PartnerInow": {
+   "EntityName": "Arrow Electronics",
+   "Street1": "132 Street 1",
+   "Street2": "Atten Mrs. Robinson",
+   "City": "Bolder",
+   "StateProvince": "CO",
+   "PostalCode":"80203",
+   "Country":{"Name":"United States",
+   			  "twoCharCode":"US",
+   			  "threeCharCode":"USA"}
+   }
+},
+{
+   "Sid": "2",
+   "Name": "transaction",
+   "Type": "csv",
+   "PartnerInow": {
+   "EntityName": "Seagate Electronics",
+   "Street1": "132 Street 1",
+   "Street2": "Atten Mrs. Robinson",
+   "City": "Denver",
+   "StateProvince": "CO",
+   "PostalCode":"80203",
+   "Country":{"Name":"United States",
+   			  "twoCharCode":"US",
+   			  "threeCharCode":"USA"}
+   }
+}
+]

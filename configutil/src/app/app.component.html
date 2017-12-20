@@ -1,0 +1,14 @@
+<div id="Top" style="text-align: left">
+
+    <a href="#" class="logo" [routerLink]="['/']">
+        <img alt="logo" src="assets/images/Modeln_Logo_small.gif" />
+    </a>
+	<div></div>
+</div>
+<div id="menu" align="left">
+	<p-panelMenu [model]="items" [style]="{'width':'150px'}"></p-panelMenu>
+	
+</div>
+<div id="layout-content" align="center">
+   	<router-outlet></router-outlet>
+</div>	
